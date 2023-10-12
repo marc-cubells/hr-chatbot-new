@@ -141,17 +141,15 @@ tools = [
 ]
 
 # change the value of the prefix argument in the initialize_agent function. This will overwrite the default prompt template of the zero shot agent type
-agent_kwargs = {
-    "prefix": f"You are friendly HR assistant. You are tasked to assist the current user: {user} on questions related to HR. You have access to the following tools:"
-}
+agent_kwargs = {"prefix": f"You are friendly HR assistant. You are tasked to assist the current user: {user} on questions related to HR. You have access to the following tools:"}
 
 # initialize the LLM agent
 agent = initialize_agent(
-    tools,
-    openai_llm,
-    agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION,
-    verbose=True,
-    agent_kwargs=agent_kwargs,
+    tools        = tools,
+    llm          = openai_llm,
+    agent        = AgentType.ZERO_SHOT_REACT_DESCRIPTION,
+    verbose      = True,
+    agent_kwargs = agent_kwargs,
 )
 
 def get_response(user_input):
