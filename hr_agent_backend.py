@@ -14,6 +14,7 @@ from langchain.tools.python.tool import PythonAstREPLTool
 from langchain.agents            import initialize_agent, Tool
 from langchain.agents            import AgentType
 from langchain                   import LLMMathChain
+from langchain.utilities         import SerpAPIWrapper, GoogleSearchAPIWrapper
 
 # Directory where the HTML files are stored
 FILES_DIR = "./docs"
@@ -33,6 +34,7 @@ def get_txt_contents():
 # Retrieve the concatenated content from all the TXT files
 try:
     text = get_txt_contents()
+    print(text)
 except FileNotFoundError:
     print(f"Error: HTMLs files not found: {FILES_DIR}")
 except Exception as e:
@@ -62,7 +64,7 @@ conversation_memory = ConversationBufferMemory(
     output_key      = "answer"
     )
 
-timekeeping_policy = ConversationalRetrievalChain.from_llm(
+local_txt_files = ConversationalRetrievalChain.from_llm(
         llm                     = openai_llm, 
         retriever               = vectorstore.as_retriever(search_type = "similarity"), 
         memory                  = conversation_memory,
@@ -77,9 +79,10 @@ timekeeping_policy = ConversationalRetrievalChain.from_llm(
 df = pd.read_csv("./docs/employee_data_v3.csv")  
 
 # set access of python_repl tool to the dataframe
-python = PythonAstREPLTool(
-    locals={"df": df}
-)  
+python = PythonAstREPLTool(locals={"df": df})  
+
+# load the tool for Google Searches
+search = SerpAPIWrapper()
 
 # create calculator tool
 calculator = LLMMathChain.from_llm(llm=openai_llm)
@@ -91,8 +94,8 @@ df_columns = df.columns.to_list()  # print column names of df
 # prepare the vectordb retriever, the python_repl and langchain calculator as tools for the agent
 tools = [
     Tool(
-        name="Timekeeping Policies",
-        func=timekeeping_policy.run,
+        name="Local TXT files",
+        func=local_txt_files.run,
         description="""
         Useful for when you need to answer questions about employee timekeeping policies.
 
@@ -117,10 +120,15 @@ tools = [
         """,
     ),
     Tool(
-        name="Calculator",
-        func=calculator.run,
+        name="Langchain Serpapi",
+        func=search.run,
         description=f"""
-        Useful when you need to do math operations or arithmetic.
+        A search engine. Useful for when you need to answer questions about current events. Input should be a search query.
+
+        <user>: What is the capital of France?
+        <assistant>: Action: Langchain Serpapi
+        <assistant>: Action Input: What is the capital of France?
+        <assistant>: Paris
         """,
     ),
 ]
@@ -147,3 +155,15 @@ def get_response(user_input):
         if response.startswith("Could not parse LLM output: `"):
             response = response.removeprefix("Could not parse LLM output: `").removesuffix("`")
     return response
+
+while True:
+    user_input = input("### Please enter your question (or type 'exit' to quit): ")
+    
+    if user_input.lower() == 'exit':
+        break
+
+    response = get_response(user_input)
+
+    print("******************************************************************************")
+    print("### Response: " + response)
+    print("******************************************************************************")
