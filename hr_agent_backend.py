@@ -34,7 +34,6 @@ def get_txt_contents():
 # Retrieve the concatenated content from all the TXT files
 try:
     text = get_txt_contents()
-    print(text)
 except FileNotFoundError:
     print(f"Error: HTMLs files not found: {FILES_DIR}")
 except Exception as e:
