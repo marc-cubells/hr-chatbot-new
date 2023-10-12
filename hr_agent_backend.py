@@ -120,6 +120,13 @@ tools = [
         """,
     ),
     Tool(
+        name="Calculator",
+        func=calculator.run,
+        description=f"""
+        Useful when you need to do math operations or arithmetic.
+        """,
+    ),
+    Tool(
         name="Langchain Serpapi",
         func=search.run,
         description=f"""
