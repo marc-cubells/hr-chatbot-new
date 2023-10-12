@@ -1,0 +1,11 @@
+employee id,first name,last name,email,birthday,position,rank,hire date,vacation leave annual budget,vacation leave days taken,number of vacation leaves taken,sick leave days taken,number of sick leave days taken,line manager,coach
+001,John,Doe,johndoe@email.com,1985-05-13,Software Engineer,Senior,2017-04-10,20,8,4,3,2,Mike Smith,Alan White
+002,Jane,Smith,janesmith@email.com,1990-12-01,Marketing Specialist,Associate,2019-06-20,18,6,3,1,1,Emily Clark,Christine Brown
+003,Emily,Jackson,emilyjackson@email.com,1988-09-24,Product Manager,Lead,2018-02-15,22,7,3,4,3,Robert Johnson,Mark Taylor
+004,Robert,Brown,robertbrown@email.com,1987-03-12,HR Specialist,Junior,2020-11-01,16,4,2,0,0,Jane Smith,Lisa Green
+005,Mark,Johnson,markjohnson@email.com,1982-08-29,Finance Analyst,Senior,2015-05-05,21,9,5,2,2,Luke Williams,John Gray
+006,Luke,Williams,lukewilliams@email.com,1993-04-04,Sales Representative,Associate,2021-01-10,17,5,3,3,2,Emily Jackson,Peter Davis
+007,Christine,Davis,christinedavis@email.com,1986-11-15,UI/UX Designer,Lead,2018-07-24,23,10,4,2,2,Robert Brown,Jane Miller
+008,Peter,Miller,petermiller@email.com,1991-06-20,Data Scientist,Junior,2019-09-30,19,8,4,1,1,Mark Johnson,Alan White
+009,Alan,Green,alangreen@email.com,1984-10-03,Network Engineer,Senior,2016-12-12,24,11,5,4,3,Luke Williams,John Gray
+010,Lisa,Gray,lisagray@email.com,1989-07-07,Content Creator,Associate,2020-08-15,18,6,2,2,1,Christine Davis,Emily Clark
